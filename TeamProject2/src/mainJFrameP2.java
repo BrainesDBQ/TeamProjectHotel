@@ -16,6 +16,12 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
 import java.awt.event.AdjustmentListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import javax.swing.JSlider;
 import javax.swing.JLabel;
@@ -143,6 +149,7 @@ public class mainJFrameP2 extends JFrame {
 		
 		//label over radio buttons, used for selecting room size
 		JLabel labelTypeOfRoom = new JLabel("Please Select the Type of Room:");
+		labelTypeOfRoom.setForeground(Color.BLUE);
 		labelTypeOfRoom.setFont(new Font("Century Gothic", Font.PLAIN, 17));
 		labelTypeOfRoom.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTypeOfRoom.setBounds(153, 294, 296, 28);
@@ -213,6 +220,7 @@ public class mainJFrameP2 extends JFrame {
 		
 		//label over checkboxes, used to select any special requirments of the room 
 		JLabel labelSpecialRequirements = new JLabel("Please Select Any Special Requirements:");
+		labelSpecialRequirements.setForeground(Color.BLUE);
 		labelSpecialRequirements.setHorizontalAlignment(SwingConstants.LEFT);
 		labelSpecialRequirements.setFont(new Font("Century Gothic", Font.PLAIN, 17));
 		labelSpecialRequirements.setBounds(469, 294, 336, 28);
@@ -252,6 +260,7 @@ public class mainJFrameP2 extends JFrame {
 		btnSubmitForm.setFont(new Font("Century Gothic", Font.BOLD, 15));
 		btnSubmitForm.setBounds(469, 869, 128, 23);
 		contentPane.add(btnSubmitForm);
+		btnSubmitForm.addActionListener(null);
 		
 		//This button resets all fields to default
 		JButton btnReset = new JButton("Reset");
@@ -341,24 +350,28 @@ public class mainJFrameP2 extends JFrame {
 		
 		//radio button used to select a visa card
 		JRadioButton rdbtnVisa = new JRadioButton("Visa");
+		rdbtnVisa.setForeground(Color.BLUE);
 		rdbtnVisa.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		rdbtnVisa.setBounds(602, 640, 157, 23);
 		contentPane.add(rdbtnVisa);
 		
 		//radio button used to select a mastercard
 		JRadioButton rdbtnMastercard = new JRadioButton("MasterCard");
+		rdbtnMastercard.setForeground(Color.BLUE);
 		rdbtnMastercard.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		rdbtnMastercard.setBounds(761, 640, 128, 23);
 		contentPane.add(rdbtnMastercard);
 		
 		//radio button used to select an american express card
 		JRadioButton rdbtnAmericanExpress = new JRadioButton("American Express");
+		rdbtnAmericanExpress.setForeground(Color.BLUE);
 		rdbtnAmericanExpress.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		rdbtnAmericanExpress.setBounds(602, 663, 157, 23);
 		contentPane.add(rdbtnAmericanExpress);
 		
 		//radio button used to select discover card
 		JRadioButton rdbtnDiscover = new JRadioButton("Discover");
+		rdbtnDiscover.setForeground(Color.BLUE);
 		rdbtnDiscover.setFont(new Font("Century Gothic", Font.PLAIN, 15));
 		rdbtnDiscover.setBounds(761, 665, 128, 23);
 		contentPane.add(rdbtnDiscover);
@@ -402,4 +415,48 @@ public class mainJFrameP2 extends JFrame {
 		contentPane.add(textFieldCCV);
 		textFieldCCV.setColumns(10);
 	}
+	
+	
+	// Should print to file, only an example real business would not save Credit Cards or CCV Number
+	public class Save implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent b) {
+			String FNText = textFieldFirstName.getText(); 
+			String LNText = textFieldLastName.getText(); 
+			String PhoneText = textFieldPhoneNumber.getText(); 
+			String CCText = textFieldCreditCardNumber.getText(); 
+			String CCVText = textFieldCCV.getText(); 
+			String ExpirationText = textFieldExpirationDate.getText(); 
+			String EmailText = textFieldEmailAddress.getText(); 
+			String CheckInText = textFieldCheckInDate.getText(); 
+			String CheckOutText = textFieldCheckOutDate.getText(); 
+
+			PrintWriter writer = null;
+			try {
+				writer = new PrintWriter(LNText, FNText);
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			writer.println("FirstName" + FNText);
+			writer.println("LastName" + LNText);
+			writer.println("PhoneNumber" +PhoneText);
+			writer.println("Credit Card" +CCText);
+			writer.println("CCVText" +CCVText);
+			writer.println("ExpirationText" +ExpirationText);
+			writer.println("Email" +EmailText);
+			writer.println("CheckIn"+CheckInText);
+			writer.println("CheckOut"+CheckOutText);
+			writer.close();
+			
+			
+			// TODO Auto-generated method stub
+			
+			Scanner inFile = null;
+		}
+		
+		
+		
+	} 
 }
